@@ -1,0 +1,33 @@
+{
+  "name": "league-teamranked-analyzer",
+  "version": "0.0.1",
+  "description": "The goal of this project is to build a web application that uses the official Riot API to gather information for a ranked team of League of Legends. The obtained stats may be used to develop new and find weaknesses in existing strategies.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "watch": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F3nris/LeagueTeamrankedAnalyzer.git"
+  },
+  "keywords": [
+    "LoL",
+    "League",
+    "Legends",
+    "Team",
+    "Ranked",
+    "Riot",
+    "API"
+  ],
+  "author": "Michael Thiele-Maas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/F3nris/LeagueTeamrankedAnalyzer/issues"
+  },
+  "homepage": "https://github.com/F3nris/LeagueTeamrankedAnalyzer#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
