@@ -1,0 +1,41 @@
+body {
+  background-image: url("/public/media/patterns/bg2.png");
+  font-family: sans-serif;
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.home-title {
+  width: 40rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+  color: rgb(240, 240, 240);
+  font-size: 150%;
+  padding: 1rem 2rem 1rem 2rem;
+  border: 3px solid rgb(240,240,240);
+}
+
+.home-title h1, h2 {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.home-inputform {
+  margin-top: 4rem;
+}
+
+.home-inputform-member {
+  margin-right: 0.25rem;
+}
+
+.paragraph-white-basic {
+  color: rgb(240, 240, 240);
+  font-size: 1rem;
+}
+
+.paragraph-white-basic a, a:visited {
+  color: rgb(240, 240, 240);
+}
