@@ -1,24 +1,24 @@
 body {
   background-image: url("/public/media/patterns/bg2.png");
   font-family: sans-serif;
+  color: rgb(240,240,240);
 }
 
 .content-wrapper {
-    margin: 0 auto;
-    text-align: center;
-}
-
-.home-title {
   width: 40rem;
   margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  margin: 0 auto;
   margin-top: 5rem;
-  color: rgb(240, 240, 240);
   font-size: 150%;
   padding: 1rem 2rem 1rem 2rem;
   border: 3px solid rgb(240,240,240);
 }
 
-.home-title h1, h2 {
+.title h1, h2 {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
@@ -32,10 +32,32 @@ body {
 }
 
 .paragraph-white-basic {
-  color: rgb(240, 240, 240);
-  font-size: 1rem;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  width:
 }
 
 .paragraph-white-basic a, a:visited {
   color: rgb(240, 240, 240);
+}
+
+.pure-form-stacked input, select {
+  color: rgb(40, 40, 40);
+}
+
+.pure-form-stacked legend {
+  color: rgb(240,240,240);
+  font-size: 120%;
+  height: 3rem;
+}
+
+.text-hover-tooltip {
+  cursor: pointer;
+  font-weight: bold;
+  border-bottom: rgb(190, 0, 0) 1px dotted;
+  color: rgb(190, 0, 0);
+}
+
+.justify {
+  text-align: justify;
 }

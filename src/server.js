@@ -19,7 +19,7 @@ module.exports = function(app) {
   app.get('/formHandler/:formName', function(req, res, next){
     if (req.params.formName == "team") {
       req.url = '/team/' + req.query.region + "/" + req.query.teamName ;
-    } else if (req.params.formName == "summoner") {
+    } else if (req.params.formName == "teamBySummoner") {
       req.url = '/teamBySummoner/' + req.query.region + "/" + req.query.summonerName ;
     } else {
       req.url = "404";
@@ -42,7 +42,20 @@ module.exports = function(app) {
   });
 
   app.get('/teamBySummoner/:region/:name', function(req, res, next) {
+    var region = req.params.region;
+    var summoner = req.params.name;
 
+    var result = storage.getTeamsOfSummoner(name, region);
+
+    if (!result) {
+      res.render('summoner-unknown', { "region": region, "summoner": summoner});
+    } else {
+      res.render('team-select', {
+        "summoner" : summoner,
+        "region" : region,
+        "teamList": result.teams
+      });
+    }
   });
 
   app.use(function(req, res, next) {
