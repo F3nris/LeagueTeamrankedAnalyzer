@@ -16,9 +16,8 @@ ApiHandler.prototype.getTeamsBySummoner = function(summonerName, region) {
 
     var summonerPromise = self.getSummoner(summonerName, region);
 
-    summonerPromise.then(function(jsonAsString){
-      var summonerData = JSON.parse(jsonAsString);
-      var summonerID = summonerData[summonerName].id;
+    summonerPromise.then(function(summonerData){
+      var summonerID = summonerData.id;
 
       rp(apiConfig.API_BASE_URL + region + "/v2.4/team/by-summoner/"+summonerID+"?api_key="+apiConfig.API_KEY)
       .then(function (jsonAsString) {
@@ -44,7 +43,20 @@ ApiHandler.prototype.getSummoner = function(summonerName, region) {
   region = region.toLowerCase();
   var htmlName = urlencode(summonerName);
 
-  return rp(apiConfig.API_BASE_URL + region + "/v1.4/summoner/by-name/"+htmlName+"?api_key="+apiConfig.API_KEY);
+  return new Promise(function(resolve, reject) {
+    rp(apiConfig.API_BASE_URL + region + "/v1.4/summoner/by-name/"+htmlName+"?api_key="+apiConfig.API_KEY)
+    .then(function(dataAsString){
+      console.log("TEST3");
+      var summonerData = JSON.parse(dataAsString)[summonerName];
+      resolve ({
+        "id": summonerData.id,
+        "name": summonerData.name
+      });
+    }).catch(function(err){
+      self.errorFunction(err);
+      reject();
+    });
+  });
 }
 
 ApiHandler.prototype.errorFunction = function(err) {
