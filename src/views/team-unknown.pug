@@ -13,7 +13,7 @@ html
           <span class="text-hover-tooltip" title='Die Riot-API erlaubt es im Augenblick leider nicht direkt nach Teamnamen zu suchen. Stattdessen muss zunächst nach einem Summoner gesucht werden, zu dem dann eine Liste der Teams mitgeschickt wird, in denen er Mitglied ist.'>Warum?</span>
           <br/><br/> Ein weiterer Grund kann natürlich ein Tippfehler sein. Bitte überprüfe deine Eingaben:&nbsp;<span class="text-hover-tooltip">#{teamName}, #{region}</span>
         div.team-by-summoner-form.pure-u-1-2
-          form.pure-form-stacked.home-inputform(action='/formHandler/teamBySummoner')
+          form.pure-form-stacked.home-inputform(action='/formHandler/teamsBySummoner')
             fieldset
               legend Summoner-Lookup:
               input.home-inputform-member(type='text', name='summName', placeholder='Summonername')

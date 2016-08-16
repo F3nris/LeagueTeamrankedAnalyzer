@@ -26,6 +26,11 @@ var getTeamsBySummoner = function (name, region) {
   });
 };
 
+var getTeam = function (name, region) {
+  return storage.getTeamPromise(name, region);
+}
+
 module.exports = {
-  "getTeamsBySummoner" : getTeamsBySummoner
+  "getTeamsBySummoner" : getTeamsBySummoner,
+  "getTeam" : getTeam
 };

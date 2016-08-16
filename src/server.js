@@ -19,43 +19,52 @@ module.exports = function(app) {
   app.get('/formHandler/:formName', function(req, res, next){
     if (req.params.formName == "team") {
       req.url = '/team/' + req.query.region + "/" + req.query.teamName ;
-    } else if (req.params.formName == "teamBySummoner") {
-      req.url = '/teamBySummoner/' + req.query.region + "/" + req.query.summonerName ;
+    } else if (req.params.formName == "teamsBySummoner") {
+      req.url = '/teamsBySummoner/' + req.query.region + "/" + req.query.summName ;
     } else {
       req.url = "404";
     }
     next();
   });
 
-  app.get('/team/:region/:teamName', function(req,res){
+  app.get('/team/:region/:teamName', function(req,res, next){
     var region = req.params.region;
     var teamName = req.params.teamName;
 
-    var result = storage.lookUpTeam(teamName, region);
-    //result = {}; result.name = "Equivalent Exchange";
-
-    if (!result) {
-      res.render('team-unknown', { "region": region, "teamName": teamName});
-    } else {
-      res.render('team', { "teamStats" : result });
-    }
+    var result = teamLookUp.getTeam(teamName, region).then(function(data){
+      if (data != null){
+        res.render('team', { "teamStats" : data });
+      } else {
+        res.render('team-unknown', { "region": region, "teamName": teamName});
+      }
+    }).catch(function(err){
+      res.url = "/500";
+      next();
+    });
   });
 
-  app.get('/teamBySummoner/:region/:name', function(req, res, next) {
+  app.get('/teamsBySummoner/:region/:name', function(req, res, next) {
     var region = req.params.region;
     var summoner = req.params.name;
 
-    var result = storage.getTeamsOfSummoner(name, region);
+    var result = teamLookUp.getTeamsBySummoner(summoner, region).then(function(data){
+      if (data != null) {
+        res.render('team-select', {
+          "summoner" : summoner,
+          "region" : region,
+          "teamList": result.teams
+        });
+      } else {
+          res.render('summoner-unknown', { "region": region, "summoner": summoner});
+      }
+    }).catch (function(err){
+      console.log(err);
+      res.render('500');
+    });
+  });
 
-    if (!result) {
-      res.render('summoner-unknown', { "region": region, "summoner": summoner});
-    } else {
-      res.render('team-select', {
-        "summoner" : summoner,
-        "region" : region,
-        "teamList": result.teams
-      });
-    }
+  app.get('/500', function(req, res){
+    res.render('500');
   });
 
   app.use(function(req, res, next) {
