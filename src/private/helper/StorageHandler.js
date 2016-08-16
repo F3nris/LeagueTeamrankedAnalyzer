@@ -38,3 +38,8 @@ StorageHandler.prototype.addSummoner = function(summName, region, data) {
   var saveName = hash(region + "-" + summName);
   this.storage.set("summ:"+saveName, JSON.stringify(data));
 }
+
+StorageHandler.prototype.addTeam = function(teamName, region, data) {
+  var saveName = hash(region + "-" + teamName);
+  this.storage.set("team:"+saveName, JSON.stringify(data));
+}
