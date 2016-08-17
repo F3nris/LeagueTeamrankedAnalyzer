@@ -37,7 +37,6 @@ ApiHandler.prototype.getSummoner = function(summonerName, region) {
   return new Promise(function(resolve, reject) {
     rp(apiConfig.API_BASE_URL + region + "/v1.4/summoner/by-name/"+htmlName+"?api_key="+apiConfig.API_KEY)
     .then(function(dataAsString){
-      console.log("TEST3");
       var summonerData = JSON.parse(dataAsString)[summonerName];
       resolve ({
         "id": summonerData.id,
