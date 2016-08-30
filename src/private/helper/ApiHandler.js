@@ -49,6 +49,34 @@ ApiHandler.prototype.getSummoner = function(summonerName, region) {
   });
 }
 
+ApiHandler.prototype.getTeamByID = function(teamID, region) {
+  region = region.toLowerCase();
+
+  return new Promise (function(resolve, reject) {
+    rp(apiConfig.API_BASE_URL + region + "/v2.4/team/"+teamID+"?api_key="+apiConfig.API_KEY)
+    .then(function(dataAsString){
+      var teamData = JSON.parse(dataAsString)[teamID];
+      resolve(teamData.matchHistory);
+    }).catch(function(err){
+      reject(err);
+    });
+  });
+}
+
+ApiHandler.prototype.getMatchByID = function(matchID, region) {
+  region = region.toLowerCase();
+
+  return new Promise (function(resolve, reject){
+    rp(apiConfig.API_BASE_URL + region + "/v2.2/match/"+matchID+"?api_key="+apiConfig.API_KEY)
+    .then(function(dataAsString){
+      var matchData = JSON.parse(dataAsString);//[teamID];
+      resolve(matchData);
+    }).catch(function(err){
+      reject(err);
+    });
+  });
+}
+
 ApiHandler.prototype.errorFunction = function(err) {
   console.log("An error occured:")
   console.log(err);

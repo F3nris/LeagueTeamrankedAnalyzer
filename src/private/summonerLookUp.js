@@ -8,7 +8,7 @@ var getSummonerID = function (name, region) {
   return new Promise(function(resolve, reject) {
 
     // Check if summoner is already stored
-    var storedSummPromise = storage.getSummonerPromise(name, region);
+    var storedSummPromise = storage.getSummoner(name, region);
     storedSummPromise.then(function(storedSumm){
       if (storedSumm != null) {
         console.log("FROM STORAGE")

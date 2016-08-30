@@ -27,7 +27,24 @@ var getTeamsBySummoner = function (name, region) {
 };
 
 var getTeam = function (name, region) {
-  return storage.getTeamPromise(name, region);
+  return new Promise (function(resolve, reject) {
+    storage.getTeam(name, region).then(function(team) {
+      if (team != null) {
+        // TODO Check when team was last updated
+        api.getTeamByID(team.id, region).then(function(teamData){
+          resolve(teamData);
+        }).catch(function(err){
+          reject(err);
+        });
+
+      } else {
+        // Team noch unbekannt
+        reject(undefined);
+      }
+    }).catch(function(err){
+      reject(err);
+    });
+  });
 }
 
 module.exports = {

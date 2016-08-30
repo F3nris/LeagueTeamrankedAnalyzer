@@ -10,7 +10,7 @@ var StorageHandler = module.exports = function () {
   this.storage = redis.createClient();
 };
 
-StorageHandler.prototype.getTeamPromise = function(teamName, region) {
+StorageHandler.prototype.getTeam = function(teamName, region) {
   var self = this;
   var saveName = hash(region + "-" + teamName);
   return new Promise(function(resolve, reject){
@@ -22,11 +22,22 @@ StorageHandler.prototype.getTeamPromise = function(teamName, region) {
   });
 }
 
-StorageHandler.prototype.getSummonerPromise = function(summName, region) {
+StorageHandler.prototype.getSummoner = function(summName, region) {
   var self = this;
   var saveName = hash(region + "-" + summName);
   return new Promise(function(resolve, reject){
     self.storage.getAsync("summ:"+saveName).then(function(data){
+      resolve(JSON.parse(data));
+    }).catch(function(err){
+      reject(err);
+    });
+  });
+}
+
+StorageHandler.prototype.getMatch = function(matchID, region) {
+  var self = this;
+  return new Promise(function(resolve, reject){
+    self.storage.getAsync("match:"+matchID).then(function(data){
       resolve(JSON.parse(data));
     }).catch(function(err){
       reject(err);
