@@ -69,8 +69,22 @@ ApiHandler.prototype.getMatchByID = function(matchID, region) {
   return new Promise (function(resolve, reject){
     rp(apiConfig.API_BASE_URL + region + "/v2.2/match/"+matchID+"?api_key="+apiConfig.API_KEY)
     .then(function(dataAsString){
-      var matchData = JSON.parse(dataAsString);//[teamID];
+      var matchData = JSON.parse(dataAsString);
       resolve(matchData);
+    }).catch(function(err){
+      reject(err);
+    });
+  });
+}
+
+ApiHandler.prototype.getChampionByID = function(champId, region) {
+  region = region.toLowerCase();
+
+  return new Promise (function(resolve, reject){
+    rp("https://global.api.pvp.net/api/lol/static-data/" + region + "/v1.2/champion/"+champId+"?api_key="+apiConfig.API_KEY)
+    .then(function(dataAsString){
+      var champData = JSON.parse(dataAsString);
+      resolve(champData);
     }).catch(function(err){
       reject(err);
     });

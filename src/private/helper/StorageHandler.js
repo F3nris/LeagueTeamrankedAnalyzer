@@ -45,6 +45,17 @@ StorageHandler.prototype.getMatch = function(matchID, region) {
   });
 }
 
+StorageHandler.prototype.getChampion = function(champId) {
+  var self = this;
+  return new Promise(function(resolve, reject){
+    self.storage.getAsync("champion:"+champId).then(function(data){
+      resolve(data);
+    }).catch(function(err){
+      reject(err);
+    });
+  });
+}
+
 StorageHandler.prototype.addSummoner = function(summName, region, data) {
   var saveName = hash(region + "-" + summName);
   this.storage.set("summ:"+saveName, JSON.stringify(data));
@@ -53,4 +64,12 @@ StorageHandler.prototype.addSummoner = function(summName, region, data) {
 StorageHandler.prototype.addTeam = function(teamName, region, data) {
   var saveName = hash(region + "-" + teamName);
   this.storage.set("team:"+saveName, JSON.stringify(data));
+}
+
+StorageHandler.prototype.addMatch = function(matchId, region, data) {
+  this.storage.set("match:"+matchId, JSON.stringify(data));
+}
+
+StorageHandler.prototype.addChampion = function(id, name) {
+  this.storage.set("champion:"+id, name);
 }
